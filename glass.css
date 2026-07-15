@@ -1,0 +1,85 @@
+body{
+  font-family:var(--font-body);
+  background:var(--bg-void);
+  color:var(--text-primary);
+  overflow-x:hidden;
+  transition:background var(--dur-med) var(--ease-glass), color var(--dur-med) var(--ease-glass);
+  cursor:none;
+}
+@media (hover:none), (pointer:coarse){
+  body{cursor:auto;}
+}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:600;
+  letter-spacing:-.02em;
+  line-height:1.08;
+}
+h1{font-size:var(--fs-3xl);}
+h2{font-size:var(--fs-2xl);}
+h3{font-size:var(--fs-xl);}
+h4{font-size:var(--fs-md);}
+
+p{color:var(--text-secondary);}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:var(--fs-xs);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+}
+
+.mono{font-family:var(--font-mono);}
+
+.btn{
+  display:inline-flex;align-items:center;gap:var(--sp-2);
+  padding:var(--sp-3) var(--sp-5);
+  border-radius:var(--r-pill);
+  font-family:var(--font-body);
+  font-weight:600;font-size:var(--fs-sm);
+  transition:transform var(--dur-fast) var(--ease-glass), box-shadow var(--dur-fast) var(--ease-glass);
+}
+.btn:hover{transform:translateY(-2px);}
+.btn:active{transform:translateY(0px) scale(.97);}
+.btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:var(--accent-contrast);
+  box-shadow:0 8px 30px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.btn-ghost{
+  background:var(--glass-tint);
+  border:1px solid var(--glass-border);
+  color:var(--text-primary);
+  backdrop-filter:blur(16px);
+}
+
+.visually-hidden{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;
+}
+
+dialog{
+  background:var(--glass-tint-strong);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  animation:scale-in .3s var(--ease-glass);
+}
+dialog::backdrop{
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(4px);
+  animation:fade-in .3s var(--ease-glass);
+}
+
+input[type="checkbox"]{
+  width:20px;height:20px;accent-color:var(--accent);cursor:pointer;
+}
+
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--glass-border);border-radius:var(--r-pill);}

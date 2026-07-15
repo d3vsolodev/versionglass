@@ -1,0 +1,193 @@
+/* ============================================================
+   Glass surfaces — signature "dynamic light" reflection.
+   Every .glass element gets a radial highlight that follows
+   --mx/--my (set by cursor.js on pointermove).
+   ============================================================ */
+
+.glass{
+  position:relative;
+  background:var(--glass-tint);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(22px) saturate(160%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);
+  box-shadow:var(--shadow-card);
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.glass::before{
+  /* dynamic light: specular highlight tracking the cursor */
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(420px circle at var(--mx) var(--my),
+              var(--glass-highlight, rgba(255,255,255,.35)) 0%,
+              transparent 45%);
+  opacity:0;
+  transition:opacity var(--dur-med) var(--ease-glass);
+  pointer-events:none;
+  mix-blend-mode:overlay;
+  z-index:2;
+}
+.glass:hover::before{opacity:.5;}
+
+.glass::after{
+  /* top border light / reflection edge */
+  content:"";
+  position:absolute;inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 40%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:1;
+}
+
+.glass-card{
+  padding:var(--sp-6);
+  transition:transform var(--dur-med) var(--ease-glass), box-shadow var(--dur-med) var(--ease-glass);
+}
+.glass-card:hover{
+  transform:translateY(-6px) scale(1.01);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.6), 0 1px 0 0 rgba(255,255,255,.08) inset;
+}
+.glass-card[data-parallax]{ will-change:transform; }
+
+/* -------- Floating Navigation -------- */
+.floating-nav{
+  position:fixed;top:20px;left:50%;
+  transform:translate(-50%,0);
+  z-index:var(--z-nav);
+  display:flex;align-items:center;gap:var(--sp-6);
+  padding:var(--sp-2) var(--sp-5);
+  border-radius:var(--r-pill);
+  background:var(--glass-tint-strong);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:var(--shadow-card);
+  transition:transform var(--dur-med) var(--ease-glass), opacity var(--dur-med) var(--ease-glass);
+}
+.floating-nav.nav-hidden{
+  transform:translate(-50%,-140%);
+  opacity:0;
+}
+.floating-nav .brand{
+  font-family:var(--font-display);font-weight:700;font-size:var(--fs-sm);
+  letter-spacing:.02em;display:flex;align-items:center;gap:var(--sp-2);
+}
+.floating-nav .brand-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 12px 2px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.floating-nav ul{display:flex;gap:var(--sp-1);}
+.floating-nav a{
+  position:relative;
+  display:inline-block;
+  padding:var(--sp-2) var(--sp-3);
+  font-size:var(--fs-sm);
+  color:var(--text-secondary);
+  border-radius:var(--r-pill);
+  transition:color var(--dur-fast) var(--ease-glass);
+}
+.floating-nav a::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--dur-med) var(--ease-glass);
+  border-radius:var(--r-pill);
+}
+.floating-nav a:hover, .floating-nav a.active{color:var(--text-primary);}
+.floating-nav a:hover::after, .floating-nav a.active::after{transform:scaleX(1);}
+
+.nav-actions{display:flex;align-items:center;gap:var(--sp-3);}
+.icon-btn{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--glass-tint);border:1px solid var(--glass-border);
+  transition:transform var(--dur-fast) var(--ease-glass), background var(--dur-fast);
+}
+.icon-btn:hover{transform:translateY(-2px);background:var(--glass-tint-strong);}
+.icon-btn svg{width:16px;height:16px;stroke:var(--text-primary);}
+
+/* -------- Floating Search Bar -------- */
+.floating-search{
+  max-width:560px;margin:0 auto var(--sp-7);
+  display:flex;align-items:center;gap:var(--sp-3);
+  padding:var(--sp-3) var(--sp-5);
+  border-radius:var(--r-pill);
+  background:var(--glass-tint);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);
+  transition:box-shadow var(--dur-med) var(--ease-glass), border-color var(--dur-med);
+}
+.floating-search:focus-within{
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.floating-search input{
+  flex:1;background:none;border:none;color:var(--text-primary);font-size:var(--fs-sm);
+}
+.floating-search input::placeholder{color:var(--text-tertiary);}
+.floating-search svg{width:16px;height:16px;stroke:var(--text-tertiary);flex-shrink:0;}
+
+/* -------- Floating Dock -------- */
+.floating-dock{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:var(--z-dock);
+  display:flex;align-items:flex-end;gap:var(--sp-2);
+  padding:var(--sp-2) var(--sp-3);
+  border-radius:var(--r-lg);
+  background:var(--glass-tint-strong);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(26px) saturate(180%);
+  box-shadow:var(--shadow-dock);
+}
+.dock-item{
+  position:relative;
+  width:50px;height:50px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--glass-tint);
+  border:1px solid var(--glass-border);
+  transition:transform var(--dur-fast) var(--ease-glass), width var(--dur-fast), height var(--dur-fast), background var(--dur-fast);
+}
+.dock-item svg{width:20px;height:20px;stroke:var(--text-primary);}
+.dock-item:hover{
+  transform:translateY(-10px) scale(1.18);
+  background:var(--glass-tint-strong);
+}
+.dock-item.active{
+  background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, transparent), color-mix(in srgb, var(--accent-2) 30%, transparent));
+}
+.dock-item.active::after{
+  content:"";position:absolute;bottom:-9px;left:50%;translate:-50% 0;
+  width:4px;height:4px;border-radius:50%;background:var(--accent-2);
+}
+.dock-item .dock-label{
+  position:absolute;bottom:64px;left:50%;translate:-50% 0;
+  padding:4px 10px;border-radius:var(--r-sm);
+  background:var(--glass-tint-strong);border:1px solid var(--glass-border);
+  font-size:var(--fs-xs);white-space:nowrap;
+  opacity:0;pointer-events:none;
+  transition:opacity var(--dur-fast) var(--ease-glass), translate var(--dur-fast);
+  backdrop-filter:blur(16px);
+}
+.dock-item:hover .dock-label{opacity:1;translate:-50% -4px;}
+
+/* -------- Glass panel generic (assistant, notif, modal) -------- */
+.glass-panel{
+  background:var(--glass-tint-strong);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(28px) saturate(180%);
+  box-shadow:var(--shadow-card);
+}
+
+hr.glass-divider{
+  border:none;height:1px;
+  background:linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin-block:var(--sp-5);
+}

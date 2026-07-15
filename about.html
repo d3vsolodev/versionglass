@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · VisionGlass</title>
+<meta name="description" content="The concept and stack behind VisionGlass.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle cx=%2216%22 cy=%2216%22 r=%2016%22 fill=%22%237c9eff%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/glass.css">
+<link rel="stylesheet" href="css/animation.css">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-theme="glass">
+<nav class="floating-nav">
+  <a href="index.html" class="brand"><span class="brand-dot"></span>VisionGlass</a>
+  <ul>
+    <li><a href="index.html" id="nav-home">Home</a></li>
+    <li><a href="dashboard.html" id="nav-dashboard">Dashboard</a></li>
+    <li><a href="gallery.html" id="nav-gallery">Gallery</a></li>
+    <li><a href="projects.html" id="nav-projects">Projects</a></li>
+    <li><a href="widgets.html" id="nav-widgets">Widgets</a></li>
+    <li><a href="assistant.html" id="nav-assistant">Assistant</a></li>
+    <li><a href="about.html" id="nav-about" class="active">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="icon-btn" id="search-toggle" aria-label="Toggle search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <a class="icon-btn" href="settings.html" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg>
+    </a>
+    <a class="icon-btn" href="profile.html" aria-label="Profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+    </a>
+  </div>
+</nav>
+
+<div class="floating-search glass" id="floating-search" style="position:fixed;top:84px;left:50%;transform:translateX(-50%);z-index:99;width:min(560px,calc(100vw - 40px));display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  <input type="text" placeholder="Search VisionGlass…" aria-label="Search">
+  <button class="icon-btn search-voice" aria-label="Voice search" style="width:28px;height:28px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>
+  </button>
+</div>
+<ul class="search-suggestions glass-panel" hidden style="position:fixed;top:130px;left:50%;transform:translateX(-50%);z-index:99;width:min(560px,calc(100vw - 40px));padding:10px;font-size:.85rem;">
+  <li style="padding:8px 10px;">Dashboard widgets</li>
+  <li style="padding:8px 10px;">Theme settings</li>
+  <li style="padding:8px 10px;">Project gallery</li>
+</ul>
+
+<script>
+document.getElementById('search-toggle')?.addEventListener('click', () => {
+  const bar = document.getElementById('floating-search');
+  bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
+  if (bar.style.display === 'flex') bar.querySelector('input').focus();
+});
+</script>
+<main class="page">
+  <div class="section-head reveal">
+    <p class="eyebrow">The concept</p>
+    <h1 style="font-size:var(--fs-2xl);">About VisionGlass</h1>
+    <p style="max-width:60ch;">A front-end study in spatial interfaces — how far plain HTML, CSS and JavaScript can go toward feeling like glass in a room, without a headset or a framework.</p>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="grid grid-2">
+      <div class="glass glass-card reveal" data-parallax="4">
+        <h4>Why glass</h4>
+        <p style="margin-top:8px;font-size:var(--fs-sm);">Glassmorphism is usually a flat blur behind a card. VisionGlass tries to earn the metaphor: real depth via parallax, a highlight that tracks light the way a physical pane would, and reflections at the border edge.</p>
+      </div>
+      <div class="glass glass-card reveal" data-parallax="4">
+        <h4>Why no framework</h4>
+        <p style="margin-top:8px;font-size:var(--fs-sm);">Every interaction here — the dock, the cursor, the parallax, the particle field — is native browser APIs: Pointer Events, Intersection Observer, Canvas, and CSS custom properties doing the heavy lifting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="section-head reveal"><h3 style="font-size:var(--fs-lg);">Built with</h3></div>
+    <div class="glass glass-panel reveal" style="padding:var(--sp-6);">
+      <div class="social-icons" style="flex-wrap:wrap;">
+        <span class="skill-pill">Semantic HTML5</span><span class="skill-pill">Web Components</span><span class="skill-pill">CSS Grid</span>
+        <span class="skill-pill">Container Queries</span><span class="skill-pill">Backdrop Filter</span><span class="skill-pill">ES Modules</span>
+        <span class="skill-pill">Canvas API</span><span class="skill-pill">Web Audio API</span><span class="skill-pill">IndexedDB-ready storage.js</span>
+        <span class="skill-pill">Service Worker</span><span class="skill-pill">Intersection Observer</span>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="floating-dock" role="navigation" aria-label="Quick dock">
+  <a class="dock-item" id="dock-home" href="index.html"><span class="dock-label">Home</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+  </a>
+  <a class="dock-item" id="dock-gallery" href="gallery.html"><span class="dock-label">Gallery</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5-11 11"/></svg>
+  </a>
+  <a class="dock-item" id="dock-projects" href="projects.html"><span class="dock-label">Projects</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7z"/></svg>
+  </a>
+  <a class="dock-item" id="dock-music" href="dashboard.html#music"><span class="dock-label">Music</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  </a>
+  <a class="dock-item" id="dock-widgets" href="widgets.html"><span class="dock-label">Widgets</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+  </a>
+  <a class="dock-item" id="dock-settings" href="settings.html"><span class="dock-label">Settings</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg>
+  </a>
+  <a class="dock-item" id="dock-profile" href="profile.html"><span class="dock-label">Profile</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+  </a>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

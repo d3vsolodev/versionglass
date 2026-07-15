@@ -1,0 +1,31 @@
+/* Desktop-first breakpoints: ultra-wide, laptop, tablet, phone, foldable */
+
+@media (min-width: 1600px){
+  .page{max-width:1520px;}
+}
+
+@media (max-width: 1080px){
+  .floating-nav ul{display:none;}
+  h1{font-size:var(--fs-2xl);}
+  h2{font-size:var(--fs-xl);}
+}
+
+@media (max-width: 720px){
+  .floating-nav{gap:var(--sp-3);padding:var(--sp-2) var(--sp-4);width:calc(100% - 24px);justify-content:space-between;}
+  .floating-dock{gap:6px;padding:6px 10px;}
+  .dock-item{width:42px;height:42px;border-radius:12px;}
+  .dock-item .dock-label{display:none;}
+  h1{font-size:var(--fs-xl);}
+  .page{padding-top:calc(var(--sp-8) + 24px);}
+}
+
+@media (max-width: 380px){
+  /* foldable / small phone */
+  .floating-search{padding:var(--sp-2) var(--sp-4);}
+  .glass-card{padding:var(--sp-4);}
+}
+
+@media (hover:none){
+  .glass:hover::before{opacity:0;}
+  .glass-card:hover{transform:none;}
+}
